@@ -1,3 +1,6 @@
-"# FE_whi 안녕하세요.
 
-Whirix프론트팀입니다!
+# FE_whi 안녕하세요.
+
+Whirix프로젝트팀입니다!
+안녕하세요 FE-Whirix
+
