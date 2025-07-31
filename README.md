@@ -28,7 +28,7 @@
 **로컬 개발 환경에서 Storybook을 실행하려면 아래 명령어를 사용하세요.**
 
 ```bash
-npm run storybook
+yarn storybook
 ```
 
 ### 🆕 새로운 스토리 추가하기
@@ -90,7 +90,7 @@ export const Secondary: Story = {
 - 또는 정적 파일을 빌드하여 공유 및 배포 가능:
 
 ```bash
-npm run build-storybook
+yarn build-storybook
 ```
 
 #### 🔍 시각적 회귀 테스트 (Visual Regression Testing)
@@ -106,7 +106,7 @@ npm run build-storybook
 📦 로컬에서 수동 실행:
 
 ```bash
-npm run chromatic
+yarn chromatic
 ```
 
 </details>
