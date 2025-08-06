@@ -1,10 +1,10 @@
 /// <reference types="vitest/config" />
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react-swc'
+import { storybookTest } from '@storybook/addon-vitest/vitest-plugin'
 import tailwindcss from '@tailwindcss/vite'
+import react from '@vitejs/plugin-react-swc'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { storybookTest } from '@storybook/addon-vitest/vitest-plugin'
+import { defineConfig } from 'vite'
 const dirname =
   typeof __dirname !== 'undefined' ? __dirname : path.dirname(fileURLToPath(import.meta.url))
 
@@ -12,6 +12,9 @@ const dirname =
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: './src/jest.setup.ts',
     projects: [
       {
         extends: true,
