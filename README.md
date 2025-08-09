@@ -137,7 +137,7 @@ export const Button = ({ variant, size, className, ...props }: ButtonProps) => {
 
 ```ts
 // Button.stories.tsx
-import type { Meta, StoryObj } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react-vite'
 import { Button } from './Button'
 
 const meta: Meta<typeof Button> = {
