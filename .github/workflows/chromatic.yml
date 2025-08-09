@@ -4,7 +4,7 @@ on:
   pull_request:
     branches:
       - main
-      - develop # 필요하면 다른 브랜치도 추가
+      - dev # 필요하면 다른 브랜치도 추가
 
 jobs:
   chromatic-deployment:
@@ -16,7 +16,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 22
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
