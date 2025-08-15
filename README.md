@@ -62,12 +62,12 @@
 ├── shared
 │ └── ui
 │   ├── button
-│   │ ├── button.tsx
-│   │ ├── button.test.tsx
-│   │ ├── button.stories.tsx
-│   │ ├── button.types.ts
-│   │ ├── button.module.css (또는 Tailwind + cva)
-│   │ └── index.ts
+│   │ ├── button.tsx // 필수 
+│   │ ├── button.test.tsx // 필수
+│   │ ├── button.stories.tsx // 필수
+│   │ ├── button.types.ts //  선택
+│   │ ├── button.module.css (또는 Tailwind + cva) // 선택
+│   │ └── index.ts // 필수
 │   └── ...
 ```
 
