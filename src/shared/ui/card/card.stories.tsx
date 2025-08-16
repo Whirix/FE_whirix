@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import Card from './card'
+import { Card } from './card'
 
 const meta: Meta<typeof Card> = {
   title: 'shared/ui/Card',
@@ -91,7 +91,7 @@ export const AccessibleCard: Story = {
   name: 'Accessibility Example',
   args: {
     variant: 'default',
-    ariaLabelledby: 'accessible-card-title',
+    'aria-labelledby': 'accessible-card-title',
     header: (
       <h2 id="accessible-card-title" className="text-xl font-bold">
         Accessible Card Title

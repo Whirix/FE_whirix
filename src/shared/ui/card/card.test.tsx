@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import Card from './card'
+import { Card } from './card'
 
 describe('Card 컴포넌트', () => {
   it('자식 요소(children)를 올바르게 렌더링해야 합니다', () => {
@@ -55,12 +55,12 @@ describe('Card 컴포넌트', () => {
     })
 
     it('aria-label prop이 제공되면 적용해야 합니다', () => {
-      render(<Card ariaLabel="접근 가능한 카드">Label</Card>)
+      render(<Card aria-label="접근 가능한 카드">Label</Card>)
       expect(screen.getByRole('article')).toHaveAttribute('aria-label', '접근 가능한 카드')
     })
 
     it('aria-labelledby prop이 제공되면 적용해야 합니다', () => {
-      render(<Card ariaLabelledby="card-title">Labelled By</Card>)
+      render(<Card aria-labelledby="card-title">Labelled By</Card>)
       expect(screen.getByRole('article')).toHaveAttribute('aria-labelledby', 'card-title')
     })
   })
