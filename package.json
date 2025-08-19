@@ -60,5 +60,6 @@
     "vite": "^7.0.4",
     "vitest": "^3.2.4",
     "whatwg-fetch": "^3.6.20"
-  }
+  },
+  "packageManager": "yarn@1.22.22"
 }
