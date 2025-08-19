@@ -1,12 +1,11 @@
-// .storybook/main.ts
-import type { StorybookConfig } from '@storybook/react-vite';
-import { mergeConfig } from 'vite';
-import path from 'path';
+
+import type { StorybookConfig } from '@storybook/react-vite'
 
 const config: StorybookConfig = {
   stories: [
     '../src/**/*.mdx',
     '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)',
+    '../src/**/*-stories.@(js|jsx|mjs|ts|tsx)',
   ],
   addons: [
     '@chromatic-com/storybook',
@@ -18,15 +17,5 @@ const config: StorybookConfig = {
     name: '@storybook/react-vite',
     options: {},
   },
-  async viteFinal(baseConfig) {
-    return mergeConfig(baseConfig, {
-      resolve: {
-        alias: {
-          '@': path.resolve(__dirname, '../src'),
-        },
-      },
-    });
-  },
-};
-
-export default config;
+}
+export default config
