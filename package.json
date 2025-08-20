@@ -13,6 +13,7 @@
     "test": "jest --watchAll"
   },
   "dependencies": {
+    "@floating-ui/react": "^0.27.15",
     "@tailwindcss/vite": "^4.1.11",
     "@tanstack/react-query": "^5.83.0",
     "axios": "^1.11.0",
