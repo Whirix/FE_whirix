@@ -31,7 +31,7 @@ export function Card({
   const finalClasses = `${baseClasses} ${variantClasses[variant]} ${className || ''}`
   const descriptionId = description ? `${rest.id || 'card'}-desc` : undefined
   return (
-    <div className={finalClasses} role={role} aria-describedby={descriptionId} {...rest}>
+    <div className={finalClasses} role={role} aria-label={descriptionId} {...rest}>
       {header && <header className="mb-4 border-b border-gray-200 pb-4">{header}</header>}
       <main>{children}</main>
       {footer && <footer className="mt-4 border-t border-gray-200 pt-4">{footer}</footer>}
