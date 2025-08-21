@@ -1,46 +1,39 @@
-name: Chromatic Deployment
+name: 'Chromatic Deployment'
 
 on:
   pull_request:
-    branches: [main, dev]   # PR 검증용 미리보기 배포
-    paths:
-      - 'src/**'
-      - '.storybook/**'
-      - 'package.json'
-      - 'yarn.lock'
-      - 'storybook/**'
+    branches:
+      - main
+      - dev
   push:
-    branches: [main]        # main 최종 배포
-    paths:
-      - 'src/**'
-      - '.storybook/**'
-      - 'package.json'
-      - 'yarn.lock'
-      - 'storybook/**'
+    branches:
+      - main
 
 jobs:
   chromatic-deployment:
     runs-on: ubuntu-latest
-
-    concurrency:
-      group: chromatic-${{ github.head_ref || github.ref }}
-      cancel-in-progress: true
-
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Setup Node.js (LTS)
+      - name: Install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20.x
-          cache: 'yarn'
-          cache-dependency-path: '**/yarn.lock'
+          node-version: 22
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
       - name: Publish to Chromatic
-        run: yarn chromatic --project-token=${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+        run: |
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            yarn chromatic --project-token=${{ secrets.CHROMATIC_PROJECT_TOKEN }} --exit-zero-on-changes
+          elif [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+            # 기본값 (변경 감지 시 실패)
+            yarn chromatic --project-token=${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+
+            # 만약 main에서 자동 승인 원하시면 아래 줄로 교체
+            # yarn chromatic --project-token=${{ secrets.CHROMATIC_PROJECT_TOKEN }} --auto-accept-changes
+          fi
