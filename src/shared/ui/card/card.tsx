@@ -7,6 +7,7 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   header?: React.ReactNode
   footer?: React.ReactNode
   variant?: CardVariant
+  description?: string
 }
 
 export function Card({
@@ -16,6 +17,7 @@ export function Card({
   variant = 'default',
   className,
   role = 'article',
+  description,
   ...rest
 }: CardProps) {
   const baseClasses = 'rounded-lg p-6'
@@ -27,9 +29,9 @@ export function Card({
   }
 
   const finalClasses = `${baseClasses} ${variantClasses[variant]} ${className || ''}`
-
+  const descriptionId = description ? `${rest.id || 'card'}-desc` : undefined
   return (
-    <div className={finalClasses} role={role} {...rest}>
+    <div className={finalClasses} role={role} aria-label={descriptionId} {...rest}>
       {header && <header className="mb-4 border-b border-gray-200 pb-4">{header}</header>}
       <main>{children}</main>
       {footer && <footer className="mt-4 border-t border-gray-200 pt-4">{footer}</footer>}
