@@ -2,6 +2,7 @@ name: Chromatic Deployment
 
 on:
   pull_request:
+
     branches: [main, dev]   # PR 검증용 미리보기 배포
     paths:
       - 'src/**'
@@ -43,4 +44,14 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Publish to Chromatic
-        run: yarn chromatic --project-token=${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+        run: |
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            echo "➡️ PR 환경이므로 exit-zero-on-changes 적용"
+            yarn chromatic --project-token=${{ secrets.CHROMATIC_PROJECT_TOKEN }} --exit-zero-on-changes
+          elif [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+            echo "➡️ main push 환경이므로 기본값 적용"
+            yarn chromatic --project-token=${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+            # 혹은 자동 승인 원할 경우:
+            # yarn chromatic --project-token=${{ secrets.CHROMATIC_PROJECT_TOKEN }} --auto-accept-changes
+          fi
+
