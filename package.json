@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "test": "jest --watchAll"
+    "test": "jest --watchAll",
+    "chromatic": "chromatic"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.11",
