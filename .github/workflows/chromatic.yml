@@ -29,11 +29,11 @@ jobs:
       - name: Publish to Chromatic
         run: |
           if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            echo "➡️ PR 환경이므로 exit-zero-on-changes 적용"
             yarn chromatic --project-token=${{ secrets.CHROMATIC_PROJECT_TOKEN }} --exit-zero-on-changes
           elif [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
-            # 기본값 (변경 감지 시 실패)
+            echo "➡️ main push 환경이므로 기본값 적용"
             yarn chromatic --project-token=${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-
-            # 만약 main에서 자동 승인 원하시면 아래 줄로 교체
+            # 혹은 자동 승인 원할 경우:
             # yarn chromatic --project-token=${{ secrets.CHROMATIC_PROJECT_TOKEN }} --auto-accept-changes
           fi
