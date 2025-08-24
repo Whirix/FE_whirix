@@ -1,11 +1,19 @@
 import * as React from 'react';
 import { cn } from '../../lib/utils';
-import type { ButtonProps } from './button.types';
+
+export type ButtonVariant = 'primary' | 'secondary';
+export type ButtonSize = 'sm' | 'md';
+
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: ButtonVariant;
+  size?: ButtonSize;
+}
 
 export function Button({
   variant = 'primary',
   size = 'md',
   className,
+  type,
   ...props
 }: ButtonProps) {
   const baseClasses =
@@ -23,7 +31,7 @@ export function Button({
 
   return (
     <button
-      type="button"
+      type={type ?? 'button'}
       className={cn(baseClasses, variantClasses, sizeClasses, className)}
       {...props}
     />
