@@ -4,21 +4,21 @@ import userEvent from '@testing-library/user-event';
 import { Input } from './input';
 
 describe('Input', () => {
-  it('label과 input이 연결된다', () => {
+  it('label이랑 input이 잘 연결됨', () => {
     render(<Input id="room" label="방 코드" />);
     const input = screen.getByLabelText('방 코드');
     expect(input).toBeInTheDocument();
     expect(input).toHaveAttribute('id', 'room');
   });
 
-  it('errorText가 있으면 aria-invalid=true이고 에러 메시지가 보인다', () => {
+  it('errorText 있으면 aria-invalid=true 되고 에러 메시지 보임', () => {
     render(<Input label="닉네임" errorText="유효하지 않은 닉네임" />);
     const input = screen.getByLabelText('닉네임');
     expect(input).toHaveAttribute('aria-invalid', 'true');
     expect(screen.getByText('유효하지 않은 닉네임')).toBeInTheDocument();
   });
 
-  it('사용자 입력이 반영된다 (uncontrolled: input이 스스로 상태 관리)', async () => {
+  it('입력한 값이 반영됨', async () => {
     const user = userEvent.setup();
     render(<Input placeholder="정답" />);
     const input = screen.getByPlaceholderText('정답') as HTMLInputElement;
@@ -26,7 +26,7 @@ describe('Input', () => {
     expect(input.value).toBe('호랑이');
   });
 
-  it('Enter 입력 시 onEnter가 호출된다', async () => {
+  it('Enter 치면 onEnter가 호출됨', async () => {
     const user = userEvent.setup();
     const handleEnter = jest.fn();
     render(<Input placeholder="정답" onEnter={handleEnter} />);
@@ -35,10 +35,9 @@ describe('Input', () => {
     expect(handleEnter).toHaveBeenCalledWith('사자');
   });
 
-  it('showCounter + maxLength가 있으면 글자 수 카운터가 보인다 (controlled: 부모 state로 상태 관리)', async () => {
+  it('showCounter + maxLength 있으면 글자 수 카운터가 보임', async () => {
     const user = userEvent.setup();
 
-    // controlled: value와 onChange로 상태를 부모 컴포넌트에서 직접 관리
     function Controlled() {
       const [val, setVal] = React.useState('');
       return (
@@ -58,14 +57,13 @@ describe('Input', () => {
     expect(screen.getByText('3 / 10')).toBeInTheDocument();
   });
 
-  it('모양 옵션(monospace/uppercase/center/textSize)이 클래스에 반영된다', () => {
+  it('스타일 옵션(monospace/uppercase/center)이 클래스에 잘 반영됨', () => {
     render(
       <Input
         placeholder="코드"
         monospace
         uppercase
         center
-        textSize="lg"
         fullWidth={false}
         className="w-[10ch]"
       />
@@ -74,10 +72,9 @@ describe('Input', () => {
     expect(input).toHaveClass('font-mono');
     expect(input).toHaveClass('uppercase');
     expect(input).toHaveClass('text-center');
-    expect(input).toHaveClass('text-lg');
   });
 
-  it('clearOnEnter: Enter 후 입력값이 비워진다', async () => {
+  it('clearOnEnter 있으면 Enter 후 입력값이 비워짐', async () => {
     const user = userEvent.setup();
     const handleEnter = jest.fn();
     render(<Input placeholder="정답" onEnter={handleEnter} clearOnEnter />);
@@ -85,10 +82,10 @@ describe('Input', () => {
 
     await user.type(input, '토끼{enter}');
     expect(handleEnter).toHaveBeenCalledWith('토끼');
-    expect(input.value).toBe(''); // Enter 후 자동 초기화
+    expect(input.value).toBe('');
   });
 
-  it('selectOnFocus: focus 시 전체 선택된다', () => {
+  it('selectOnFocus 있으면 focus 시 전체 선택됨', () => {
     render(<Input defaultValue="ABCD1234" selectOnFocus placeholder="코드" />);
     const input = screen.getByPlaceholderText('코드') as HTMLInputElement;
 
@@ -97,18 +94,18 @@ describe('Input', () => {
     expect(input.selectionEnd).toBe('ABCD1234'.length);
   });
 
-  it('trimOnBlur: blur 시 앞뒤 공백이 제거된다', async () => {
+  it('trimOnBlur 있으면 blur 시 앞뒤 공백이 제거됨', async () => {
     const user = userEvent.setup();
     render(<Input placeholder="닉네임" trimOnBlur />);
     const input = screen.getByPlaceholderText('닉네임') as HTMLInputElement;
 
     await user.type(input, '  abc  ');
     expect(input.value).toBe('  abc  ');
-    input.blur(); // blur 발생 시 공백 제거
+    input.blur();
     expect(input.value).toBe('abc');
   });
 
-  it('normalize="digits": 숫자만 유지된다', async () => {
+  it('normalize="digits"면 숫자만 유지됨', async () => {
     const user = userEvent.setup();
     const spy = jest.fn();
     render(<Input placeholder="방 코드" normalize="digits" onValueChange={spy} />);
@@ -119,7 +116,7 @@ describe('Input', () => {
     expect(lastValue).toBe('1234');
   });
 
-  it('normalize="alnum" + autoHyphen: "abcd1234" → "ABCD-1234"', async () => {
+  it('normalize="alnum" + autoHyphen이면 "abcd1234" → "ABCD-1234" 됨', async () => {
     const user = userEvent.setup();
     const spy = jest.fn();
     render(

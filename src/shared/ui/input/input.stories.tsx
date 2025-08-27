@@ -2,13 +2,15 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { action } from '@storybook/addon-actions';
 import { Input } from './input';
 
-const meta: Meta<typeof Input> = {
+const withDesc = (story: string) => ({
+  docs: { description: { story } },
+});
+
+const meta = {
   title: 'shared/ui/input',
   component: Input,
   tags: ['autodocs'],
   argTypes: {
-    size: { control: 'select', options: ['sm', 'md', 'lg'] },
-    textSize: { control: 'select', options: ['sm', 'md', 'lg', 'xl'] },
     fullWidth: { control: 'boolean' },
     monospace: { control: 'boolean' },
     uppercase: { control: 'boolean' },
@@ -22,94 +24,104 @@ const meta: Meta<typeof Input> = {
   },
   parameters: {
     actions: { argTypesRegex: '^on.*' },
+    docs: {
+      description: {
+        component:
+          'Input은 공통 컴포넌트로 만들었고, 글자체/정렬/대문자 같은 스타일 옵션이나 UX 기능(Enter 제출, 전체 선택, blur 시 트림), 입력 정규화·자동 하이픈 같은 기능들을 상황에 맞게 조합해서 쓸 수 있도록 나눠서 적용 가능하게 했습니다.'
+      },
+    },
   },
-};
+  args: {
+    fullWidth: false,
+  },
+} satisfies Meta<typeof Input>;
 export default meta;
 
 type Story = StoryObj<typeof Input>;
 
-/** 초대코드 */
-export const InviteCode: Story = {
+// 공용 템플릿
+const Template = (args: React.ComponentProps<typeof Input>) => <Input {...args} />;
+
+/** 기본 */
+export const Basic: Story = {
+  render: Template,
   args: {
-    label: '초대코드',
-    placeholder: 'ABCD-1234',
-    fullWidth: false,
-    className: 'w-[12ch]',
-    monospace: true,
-    uppercase: true,
-    center: true,
-    textSize: 'lg',
-    normalize: 'alnum',   // 영문+숫자만 허용
-    autoHyphen: true,     // 4-4 자동 하이픈
-    selectOnFocus: true,  // 포커스 시 전체 선택
-    trimOnBlur: true,     // blur 시 공백 제거
+    label: '라벨',
+    placeholder: '기본 입력',
+    className: 'w-[20ch]',
   },
+  parameters: withDesc('옵션을 최소화한 기본 상태'),
 };
 
-/** 방 코드*/
-export const RoomCode: Story = {
+/** 정규화: 숫자만 */
+export const NormalizeDigits: Story = {
+  render: Template,
   args: {
-    label: '방 코드',
+    label: '숫자만',
     placeholder: '123456',
-    fullWidth: false,
-    className: 'w-[8ch]',
-    monospace: true,
+    className: 'w-[10ch]',
     center: true,
-    textSize: 'lg',
-    normalize: 'digits',  // 숫자만 입력 가능
+    monospace: true,
+    normalize: 'digits',
     selectOnFocus: true,
     trimOnBlur: true,
+    onValueChange: action('onValueChange'),
   },
+  parameters: withDesc('입력값에서 숫자만 유지'),
 };
 
-/** 닉네임  */
-export const Nickname: Story = {
+/** 정규화: 영문+숫자 + 자동 하이픈(4-4) */
+export const NormalizeAlnumHyphen: Story = {
+  render: Template,
   args: {
-    label: '닉네임',
-    placeholder: '닉네임을 입력하세요',
-    fullWidth: false,
-    className: 'w-[16ch]',
-    maxLength: 12,
-    showCounter: true,
-    textSize: 'md',
-  },
-};
-
-/** 정답 입력 */
-export const GuessAnswer: Story = {
-  args: {
-    placeholder: '정답을 입력하고 Enter',
-    onEnter: action('onEnter'),
-    clearOnEnter: true,   // Enter 후 입력 비움
-    fullWidth: false,
-    className: 'w-full sm:w-80',
-    textSize: 'lg',
-  },
-};
-
-/** 에러 메시지 케이스 */
-export const WithError: Story = {
-  args: {
-    label: '방 코드',
-    placeholder: '123456',
-    fullWidth: false,
-    className: 'w-[8ch]',
+    label: '영문/숫자 + 하이픈',
+    placeholder: 'ABCD-1234',
+    className: 'w-[12ch]',
+    center: true,
     monospace: true,
     uppercase: true,
-    center: true,
-    errorText: '유효하지 않은 코드입니다.',
-    textSize: 'lg',
+    normalize: 'alnum',
+    autoHyphen: true,
+    selectOnFocus: true,
+    trimOnBlur: true,
+    onValueChange: action('onValueChange'),
   },
+  parameters: withDesc('영문/숫자만 허용하고 4-4 패턴으로 자동 하이픈 적용'),
 };
 
-/** 다양한 글자 크기 프리뷰 */
-export const TextSizes: Story = {
-  render: () => (
-    <div className="space-y-4">
-      <Input label="sm" placeholder="sm" fullWidth={false} className="w-[16ch]" textSize="sm" />
-      <Input label="md" placeholder="md" fullWidth={false} className="w-[16ch]" textSize="md" />
-      <Input label="lg" placeholder="lg" fullWidth={false} className="w-[16ch]" textSize="lg" />
-      <Input label="xl" placeholder="xl" fullWidth={false} className="w-[16ch]" textSize="xl" />
-    </div>
-  ),
+/** 글자 수 카운터 */
+export const WithCounter: Story = {
+  render: Template,
+  args: {
+    label: '닉네임',
+    placeholder: '닉네임을 입력',
+    className: 'w-[18ch]',
+    maxLength: 12,
+    showCounter: true,
+  },
+  parameters: withDesc('maxLength + showCounter로 길이 카운트 표시'),
+};
+
+/** Enter 제출 + 자동 초기화 */
+export const EnterAndClear: Story = {
+  render: Template,
+  args: {
+    placeholder: '정답 입력 후 Enter',
+    className: 'w-[24ch]',
+    onEnter: action('onEnter'),
+    clearOnEnter: true,
+  },
+  parameters: withDesc('Enter 시 onEnter 호출, clearOnEnter=true면 입력 초기화'),
+};
+
+/** 에러 표시 */
+export const WithError: Story = {
+  render: Template,
+  args: {
+    label: '입력값',
+    placeholder: '값을 입력',
+    className: 'w-[18ch]',
+    errorText: '유효하지 않은 입력입니다.',
+  },
+  parameters: withDesc('errorText가 있으면 aria-invalid=true 및 에러 문구 표시'),
 };
