@@ -1,13 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { action } from '@storybook/addon-actions';
 import { Input } from './input';
+import React from 'react';
 
 const withDesc = (story: string) => ({
   docs: { description: { story } },
 });
 
 const meta = {
-  title: 'shared/ui/input',
+  title: 'shared/ui/Input',
   component: Input,
   tags: ['autodocs'],
   argTypes: {
@@ -43,10 +44,9 @@ type Story = StoryObj<typeof Input>;
 const Template = (args: React.ComponentProps<typeof Input>) => <Input {...args} />;
 
 /** 기본 */
-export const Basic: Story = {
+export const Default: Story = {
   render: Template,
   args: {
-    label: '라벨',
     placeholder: '기본 입력',
     className: 'w-[20ch]',
   },
@@ -55,49 +55,74 @@ export const Basic: Story = {
 
 /** 정규화: 숫자만 */
 export const NormalizeDigits: Story = {
-  render: Template,
-  args: {
-    label: '숫자만',
-    placeholder: '123456',
-    className: 'w-[10ch]',
-    center: true,
-    monospace: true,
-    normalize: 'digits',
-    selectOnFocus: true,
-    trimOnBlur: true,
-    onValueChange: action('onValueChange'),
+  render: (args) => {
+    const [val, setVal] = React.useState('');
+    return (
+      <Input
+        {...args}
+        label="숫자만"
+        placeholder="123456"
+        className="w-[10ch]"
+        center
+        monospace
+        normalize="digits"
+        selectOnFocus
+        trimOnBlur
+        value={val}
+        onValueChange={(next) => {
+          setVal(next);
+          action('onValueChange')(next);
+        }}
+      />
+    );
   },
   parameters: withDesc('입력값에서 숫자만 유지'),
 };
 
 /** 정규화: 영문+숫자 + 자동 하이픈(4-4) */
 export const NormalizeAlnumHyphen: Story = {
-  render: Template,
-  args: {
-    label: '영문/숫자 + 하이픈',
-    placeholder: 'ABCD-1234',
-    className: 'w-[12ch]',
-    center: true,
-    monospace: true,
-    uppercase: true,
-    normalize: 'alnum',
-    autoHyphen: true,
-    selectOnFocus: true,
-    trimOnBlur: true,
-    onValueChange: action('onValueChange'),
+  render: (args) => {
+    const [val, setVal] = React.useState('');
+    return (
+      <Input
+        {...args}
+        label="영문/숫자 + 하이픈"
+        placeholder="ABCD-1234"
+        className="w-[12ch]"
+        center
+        monospace
+        uppercase
+        normalize="alnum"
+        autoHyphen
+        selectOnFocus
+        trimOnBlur
+        value={val}
+        onValueChange={(next) => {
+          setVal(next);                  // "ABCD-1234" 형태가 인풋에 표시됨
+          action('onValueChange')(next); 
+        }}
+      />
+    );
   },
   parameters: withDesc('영문/숫자만 허용하고 4-4 패턴으로 자동 하이픈 적용'),
 };
 
 /** 글자 수 카운터 */
 export const WithCounter: Story = {
-  render: Template,
-  args: {
-    label: '닉네임',
-    placeholder: '닉네임을 입력',
-    className: 'w-[18ch]',
-    maxLength: 12,
-    showCounter: true,
+  render: (args) => {
+    const [val, setVal] = React.useState('');
+    return (
+      <Input
+        {...args}
+        label="닉네임"
+        placeholder="닉네임을 입력"
+        className="w-[18ch]"
+        maxLength={12}
+        showCounter
+        value={val}                      
+        onChange={(e) => setVal(e.target.value)}
+      />
+    );
   },
   parameters: withDesc('maxLength + showCounter로 길이 카운트 표시'),
 };
