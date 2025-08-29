@@ -111,8 +111,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     };
 
     return (
-      <div className={cn(fullWidth && 'w-full')}>
-        {/* 라벨 */}
+      <div className={cn(fullWidth ? 'w-full' : 'inline-block')}>
         {label && (
           <label htmlFor={inputId} className="mb-1 block text-sm font-medium text-gray-700">
             {label}
@@ -175,7 +174,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
         {/* 에러 메시지 */}
         {errorText && (
-          <p id={errorId} className="mt-1 text-xs text-red-600">
+          <p id={errorId} 
+            className="mt-1 text-xs text-red-600 text-left">
             {errorText}
           </p>
         )}
