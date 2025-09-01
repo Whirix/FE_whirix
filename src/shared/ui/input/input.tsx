@@ -37,7 +37,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       label,
       errorText,
       className,
-      fullWidth = true,
+      fullWidth = false,
       required,
 
       // UX
@@ -76,7 +76,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     const baseSizing = 'h-10 px-3 text-base';
 
     // 에러 상태 시 스타일
-    const errorClasses = invalid ? 'border-red-500 focus:border-red-500 focus:ring-red-100' : '';
+    const errorClasses = invalid ? 'border-2 border-red-600 focus:border-red-700 focus:ring-2 focus:ring-red-200' : '';
 
     // 정렬/폰트/대문자 옵션 클래스
     const behaviorClasses = cn(
@@ -113,7 +113,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     return (
       <div className={cn(fullWidth ? 'w-full' : 'inline-block')}>
         {label && (
-          <label htmlFor={inputId} className="mb-1 block text-sm font-medium text-gray-700">
+          <label htmlFor={inputId} className="mb-1 block text-left text-sm font-medium text-gray-700">
             {label}
             {required && <span className="ml-0.5 text-red-500">*</span>}
           </label>
@@ -125,6 +125,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             id={inputId}
             ref={ref}
             className={cn(
+              fullWidth ? 'w-full' : 'w-[220px]',
               'block rounded-md border border-gray-300 bg-white outline-none transition-colors placeholder:text-gray-400 disabled:cursor-not-allowed disabled:opacity-60 focus:border-blue-500 focus:ring-2 focus:ring-blue-100',
               baseSizing,
               errorClasses,
