@@ -1,7 +1,6 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import Modal from './modal'
-import React from 'react'
 
 describe('UI/Modal', () => {
   // 모든 테스트 케이스가 실행되기 전에, 모달이 렌더링될 DOM 요소를 추가합니다.
@@ -24,7 +23,7 @@ describe('UI/Modal', () => {
     render(
       <Modal isOpen={false} onClose={() => {}} title="Test Modal">
         Modal Content
-      </Modal>,
+      </Modal>
     )
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
   })
@@ -33,7 +32,7 @@ describe('UI/Modal', () => {
     render(
       <Modal isOpen onClose={() => {}} title="Test Modal">
         Modal Content
-      </Modal>,
+      </Modal>
     )
     expect(screen.getByRole('dialog')).toBeInTheDocument()
     expect(screen.getByText('Test Modal')).toBeInTheDocument()
@@ -47,7 +46,7 @@ describe('UI/Modal', () => {
     render(
       <Modal isOpen onClose={handleClose} title="Test Modal">
         Modal Content
-      </Modal>,
+      </Modal>
     )
 
     await user.click(screen.getByLabelText('Close modal'))
@@ -61,7 +60,7 @@ describe('UI/Modal', () => {
     render(
       <Modal isOpen onClose={handleClose} title="Test Modal">
         Modal Content
-      </Modal>,
+      </Modal>
     )
 
     // 오버레이는 dialog role의 부모 요소입니다.
@@ -74,7 +73,7 @@ describe('UI/Modal', () => {
     render(
       <Modal isOpen onClose={handleClose} title="Test Modal">
         Modal Content
-      </Modal>,
+      </Modal>
     )
 
     fireEvent.keyDown(document, { key: 'Escape', code: 'Escape' })
@@ -88,7 +87,7 @@ describe('UI/Modal', () => {
     render(
       <Modal isOpen onClose={handleClose} title="Test Modal">
         Modal Content
-      </Modal>,
+      </Modal>
     )
 
     await user.click(screen.getByText('Modal Content'))
@@ -99,7 +98,7 @@ describe('UI/Modal', () => {
     const { rerender } = render(
       <Modal isOpen onClose={() => {}} title="Test Modal">
         Modal Content
-      </Modal>,
+      </Modal>
     )
 
     // 모달이 열려있는 것을 확인
@@ -110,7 +109,7 @@ describe('UI/Modal', () => {
     rerender(
       <Modal isOpen={false} onClose={() => {}} title="Test Modal">
         Modal Content
-      </Modal>,
+      </Modal>
     )
 
     // JSDOM은 CSS transition을 실행하지 않으므로, onTransitionEnd 이벤트를 수동으로 발생시킵니다.
