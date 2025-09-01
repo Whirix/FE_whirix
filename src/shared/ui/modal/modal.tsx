@@ -61,21 +61,21 @@ const Modal = ({ isOpen, onClose, title, children }: PropsWithChildren<ModalProp
     <div
       className={cn(
         'fixed inset-0 z-50 flex items-center justify-center bg-black/50 transition-opacity duration-300',
-        isVisible ? 'opacity-100' : 'opacity-0'
+        isVisible ? 'opacity-100' : 'opacity-0',
       )}
       onClick={onClose}
       onTransitionEnd={handleTransitionEnd}
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby={titleId}
-      aria-describedby={descriptionId}
     >
       <div
         className={cn(
           'relative w-full max-w-md rounded-lg bg-white p-6 shadow-xl transition-all duration-300',
-          isVisible ? 'scale-100 opacity-100' : 'scale-95 opacity-0'
+          isVisible ? 'scale-100 opacity-100' : 'scale-95 opacity-0',
         )}
-        onClick={(e) => e.stopPropagation()}
+        onClick={e => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={titleId}
+        aria-describedby={descriptionId}
       >
         <div className="flex items-center justify-between border-b pb-3">
           {title && (
@@ -111,7 +111,7 @@ const Modal = ({ isOpen, onClose, title, children }: PropsWithChildren<ModalProp
         </div>
       </div>
     </div>,
-    modalRoot
+    modalRoot,
   )
 }
 
