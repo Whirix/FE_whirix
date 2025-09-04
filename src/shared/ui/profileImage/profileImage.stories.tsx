@@ -1,4 +1,3 @@
-import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { ProfileImage } from './profileImage';
 
@@ -8,17 +7,19 @@ const meta: Meta<typeof ProfileImage> = {
   tags: ['autodocs'],
   argTypes: {
     size: { control: 'select', options: ['xs', 'sm', 'md', 'lg', 'xl'] },
-    editable: { control: 'boolean' },
-    removable: { control: 'boolean' },
     loading: { control: 'boolean' },
+    disabled: { control: 'boolean' },
   },
   args: {
     size: 'md',
+    loading: false,
+    disabled: false,
   },
   parameters: {
     docs: {
       description: {
-        component: '프로필 이미지 공용 컴포넌트',
+        component:
+          '프로필 이미지 공용 컴포넌트',
       },
     },
   },
@@ -49,7 +50,7 @@ export const Sizes: Story = {
   ),
 };
 
-/** 이미지  */
+/* 이미지 */
 export const WithImage: Story = {
   args: {
     label: '이미지',
@@ -58,61 +59,19 @@ export const WithImage: Story = {
   },
 };
 
-/* 업로드 */
-export const Editable: Story = {
-  render: (args) => {
-    const [fileName, setFileName] = React.useState('');
-    return (
-      <div className="flex items-center gap-3">
-        <ProfileImage
-          {...args}
-          editable
-          fallbackText="edit"
-          onUpload={(file) => setFileName(file.name)}
-        />
-        {fileName && <span className="text-xs text-slate-500">{fileName}</span>}
-      </div>
-    );
-  },
-  args: {
-    label: '수정',
-  },
-};
-
-/* 제거 */
-export const Removable: Story = {
-  render: (args) => {
-    const [img, setImg] = React.useState<string | undefined>('/train.webp');
-    return (
-      <ProfileImage
-        {...args}
-        src={img}
-        removable
-        fallbackText="–"
-        onRemove={() => setImg(undefined)}
-      />
-    );
-  },
-  args: {
-    label: '제거',
-  },
-};
-
-/* 에러 상태 */
-export const WithError: Story = {
-  args: {
-    label: '에러',
-    fallbackText: 'ER',
-    errorText: '이미지 형식이 올바르지 않습니다.',
-  },
-};
-
 /* 로딩 */
 export const Loading: Story = {
   args: {
     label: '로딩',
-    loading: true,
-    fallbackText: 'loading..',
-    className: 'text-[10px]',
+    loading: true, 
+  },
+};
+
+/* 비활성화 */
+export const Disabled: Story = {
+  args: {
+    label: '비활성화',
+    disabled: true,
+    fallbackText: 'SJ',
   },
 };
