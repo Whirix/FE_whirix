@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { useState } from 'react'
-import Modal from './modal'
 import { Button } from '../button/button'
+import { Modal } from './modal'
 
 /**
  * `Modal` 컴포넌트는 `isOpen` 상태에 따라 동적으로 렌더링되므로,

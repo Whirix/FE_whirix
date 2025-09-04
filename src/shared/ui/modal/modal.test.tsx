@@ -1,6 +1,6 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import Modal from './modal'
+import { Modal } from './modal'
 
 describe('UI/Modal', () => {
   // 모든 테스트 케이스가 실행되기 전에, 모달이 렌더링될 DOM 요소를 추가합니다.
