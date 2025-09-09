@@ -44,5 +44,16 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist', // 명시적 지정, 기본값은 'dist'
+    rollupOptions: {
+      external: [
+        // Storybook 관련 파일들 모두 제외
+        /^.*\.stories\.(js|jsx|ts|tsx)$/,
+        /^.*\.story\.(js|jsx|ts|tsx)$/,
+        /^.*\.mdx$/,
+        /^\.storybook\/.*$/,
+        /storybook-static\/.*$/,
+        /@storybook\/.*/,
+      ],
+    },
   },
 })
