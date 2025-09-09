@@ -8,8 +8,8 @@ import { defineConfig } from 'vite'
 const dirname =
   typeof __dirname !== 'undefined' ? __dirname : path.dirname(fileURLToPath(import.meta.url))
 
-// More info at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
 export default defineConfig({
+  root: '.',
   plugins: [react(), tailwindcss()],
   test: {
     globals: true,
@@ -41,5 +41,19 @@ export default defineConfig({
         },
       },
     ],
+  },
+  build: {
+    outDir: 'dist', // 명시적 지정, 기본값은 'dist'
+    rollupOptions: {
+      external: [
+        // Storybook 관련 파일들 모두 제외
+        /^.*\.stories\.(js|jsx|ts|tsx)$/,
+        /^.*\.story\.(js|jsx|ts|tsx)$/,
+        /^.*\.mdx$/,
+        /^\.storybook\/.*$/,
+        /storybook-static\/.*$/,
+        /@storybook\/.*/,
+      ],
+    },
   },
 })
