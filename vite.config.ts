@@ -42,4 +42,7 @@ export default defineConfig({
       },
     ],
   },
+  build: {
+    outDir: 'dist', // 명시적 지정, 기본값은 'dist'
+  },
 })
