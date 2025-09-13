@@ -1,4 +1,7 @@
 export * from './button/button'
 export * from './card/card'
 export * from './input/input'
+export * from './modal/modal'
+export * from './profileImage/profileImage'
+export * from './toast/toast'
 export * from './tooltip/tooltip'
