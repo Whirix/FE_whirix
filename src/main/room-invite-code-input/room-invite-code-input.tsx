@@ -5,15 +5,15 @@ import { cn } from '../../shared/lib/utils';
 
 type Casing = 'lower' | 'upper' | 'none';
 
-type RoomInviteCodeInputProps = {
-  length?: number;               
+interface RoomInviteCodeInputProps {
+  length?: number;               // 초대 코드의 자릿수 설정
   casing?: Casing;               // 입력된 문자의 대소문자 처리
   disabled?: boolean;            
   errorText?: string;            
   initialValue?: string;         
   onChange?: (code: string) => void;   
   onComplete?: (code: string) => void; 
-};
+}
 
 export function RoomInviteCodeInput({
   length = 6,
