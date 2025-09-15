@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom'
 
-import Home from './pages/home'
+import Home from './pages/main'
 import Game from './pages/game'
 import { Error } from './shared/components/error'
 import { Layout } from './shared/layout/layout'
