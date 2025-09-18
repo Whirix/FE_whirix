@@ -1,7 +1,7 @@
 'use client'
 
+import { RoomInviteCodeInput } from '../feature/main/components/room-invite-code-input/room-invite-code-input'
 import { Button } from '../shared/ui'
-import { RoomInviteCodeInput } from '../main/room-invite-code-input/room-invite-code-input'
 
 export default function HomePage() {
   return (
