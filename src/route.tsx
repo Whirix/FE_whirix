@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom'
 
-import Home from './pages/main'
+import Main from './pages/main'
 import Game from './pages/game'
 import { Error } from './shared/components/error'
 import { Layout } from './shared/layout/layout'
@@ -10,8 +10,8 @@ export const router = createBrowserRouter([
     element: <Layout />,
     errorElement: <Error />,
     children: [
-      { index: true, element: <Home /> }, // path="/" 와 동일
-      { path: 'home', element: <Home /> }, // path="/home" 와 동일
+      { index: true, element: <Main /> }, // path="/" 와 동일
+      { path: 'main', element: <Main /> }, // path="/home" 와 동일
       { path: 'game', element: <Game /> },
     ],
   },
