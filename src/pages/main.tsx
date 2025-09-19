@@ -9,7 +9,7 @@ export default function MainPage() {
       id="home-component-container"
       className="grid h-screen grid-cols-[0.75fr_3fr_1.25fr] grid-rows-[auto_1fr_auto] gap-3 p-6"
     >
-      {/* 헤더: 로고 */}
+
       <div
         id="header"
         className="col-span-3 flex items-center justify-center p-4"
@@ -18,6 +18,7 @@ export default function MainPage() {
       </div>
 
       {/* 메인 */}
+
       <div
         id="main"
         className="col-span-3 flex items-center justify-center gap-10 rounded-lg p-4"
@@ -37,6 +38,7 @@ export default function MainPage() {
         </div>
 
         {/* 오른쪽: 초대코드 입력 */}
+
         <div className="flex flex-col items-center justify-center flex-[1.2] bg-gray-100 rounded-lg p-5 min-h-[945px] min-w-[500px]">
           <p className="mb-12 text-3xl font-semibold">초대코드를 입력해주세요.</p>
           <div className="scale-125">
@@ -49,4 +51,6 @@ export default function MainPage() {
       </div>
     </div>
   )
+
+
 }

@@ -1,4 +1,4 @@
-import { Button } from '../shared/ui'
+import { GameSettingModal } from '../feature/game/components/game-setting-modal'
 
 export default function GamePage() {
   return (
@@ -12,9 +12,7 @@ export default function GamePage() {
         <span id="timer" className="mr-2">
           120s
         </span>
-        <Button id="setting-button" className="rounded-full bg-gray-300 px-4 py-2">
-          설정
-        </Button>
+        <GameSettingModal isOpen={false} />
       </div>
 
       {/* 좌측 유저/팔레트 */}
