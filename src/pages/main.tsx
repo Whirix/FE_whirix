@@ -3,7 +3,7 @@
 import { RoomInviteCodeInput } from '../feature/main/components/room-invite-code-input/room-invite-code-input'
 import { Button } from '../shared/ui'
 
-export default function HomePage() {
+export default function MainPage() {
   return (
     <div
       id="home-component-container"
